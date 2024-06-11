@@ -4,5 +4,5 @@ import * as THREE from 'three';
 const scene = new THREE.Scene();
 
 // Create sphere
-const geometry = new THREE.SphereGeometry(1, 32, 32);
+const geometry = new THREE.SphereGeometry(3, 64, 64);
 
