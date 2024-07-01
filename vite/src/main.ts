@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import "./style.css";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 // Create a scene
 const scene = new THREE.Scene();
@@ -19,12 +20,12 @@ const sizes = {
   height: window.innerHeight,
 };
 
-// Create light
+// Light
 const light = new THREE.PointLight(0xffffff, 80, 100);
 light.position.set(5, 10, 10);
 scene.add(light);
 
-// Create camera
+// Camera
 const camera = new THREE.PerspectiveCamera(
   45,
   window.innerWidth / window.innerHeight,
@@ -34,11 +35,15 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 15;
 scene.add(camera);
 
-// Create renderer
+// Renderer
 const canvas = document.querySelector(".webgl") as HTMLCanvasElement;
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
+
+// Controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
 
 // Resize
 window.addEventListener("resize", () => {
@@ -52,6 +57,9 @@ window.addEventListener("resize", () => {
 });
 
 const loop = () => {
+  mesh.position.x = Math.sin(Date.now() * 0.0001) * 2;
+  mesh.position.y = Math.cos(Date.now() * 0.0001) * 2;
+  
   renderer.render(scene, camera);
   window.requestAnimationFrame(loop);
 };
