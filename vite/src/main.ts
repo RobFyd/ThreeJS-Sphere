@@ -60,6 +60,7 @@ const loop = () => {
   mesh.position.x = Math.sin(Date.now() * 0.0001) * 2;
   mesh.position.y = Math.cos(Date.now() * 0.0001) * 2;
   
+  controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(loop);
 };

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var THREE = require("three");
 require("./style.css");
+var OrbitControls_1 = require("three/examples/jsm/controls/OrbitControls");
 // Create a scene
 var scene = new THREE.Scene();
 // Create sphere
@@ -16,16 +17,37 @@ var sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
 };
-// Create light
+// Light
 var light = new THREE.PointLight(0xffffff, 80, 100);
 light.position.set(5, 10, 10);
 scene.add(light);
-// Create camera
+// Camera
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.z = 15;
 scene.add(camera);
-// Create renderer
+// Renderer
 var canvas = document.querySelector(".webgl");
 var renderer = new THREE.WebGLRenderer({ canvas: canvas });
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
+// Controls
+var controls = new OrbitControls_1.OrbitControls(camera, canvas);
+controls.enableDamping = true;
+// Resize
+window.addEventListener("resize", function () {
+    // Update sizes
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+    // Update camera
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(sizes.width, sizes.height);
+});
+var loop = function () {
+    mesh.position.x = Math.sin(Date.now() * 0.0001) * 2;
+    mesh.position.y = Math.cos(Date.now() * 0.0001) * 2;
+    controls.update();
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(loop);
+};
+loop();
