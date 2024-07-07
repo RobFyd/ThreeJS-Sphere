@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import "./style.css";
+import gsap from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 // Create a scene
@@ -64,9 +65,15 @@ window.addEventListener("resize", () => {
 const loop = () => {
   // mesh.position.x = Math.sin(Date.now() * 0.0001) * 2;
   // mesh.position.y = Math.cos(Date.now() * 0.0001) * 2;
-  
+
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(loop);
 };
 loop();
+
+// timeline animation
+const tl = gsap.timeline({ defaults: { duration: 2 } });
+tl.fromTo(mesh.scale, { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 });
+tl.fromTo("nav", { y: "-100%" }, { y: "0%" }, "-=1.5");
+tl.fromTo(".title", { opacity: 0 }, { opacity: 1 }, "-=1");
