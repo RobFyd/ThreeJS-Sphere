@@ -21,7 +21,7 @@ const sizes = {
 };
 
 // Light
-const light = new THREE.PointLight(0xffffff, 1, 100);
+const light = new THREE.PointLight(0xffffff, 100, 100);
 light.position.set(0, 10, 10);
 scene.add(light);
 
