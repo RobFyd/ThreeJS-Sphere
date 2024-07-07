@@ -8,7 +8,7 @@ const scene = new THREE.Scene();
 // Create sphere
 const geometry = new THREE.SphereGeometry(3, 64, 64);
 const material = new THREE.MeshStandardMaterial({
-  color: "lightgreen",
+  color: "#00ff00",
 });
 
 const mesh = new THREE.Mesh(geometry, material);
@@ -21,8 +21,8 @@ const sizes = {
 };
 
 // Light
-const light = new THREE.PointLight(0xffffff, 80, 100);
-light.position.set(5, 10, 10);
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(0, 10, 10);
 scene.add(light);
 
 // Camera
@@ -32,18 +32,23 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.z = 15;
+camera.position.z = 20;
 scene.add(camera);
 
 // Renderer
 const canvas = document.querySelector(".webgl") as HTMLCanvasElement;
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(2);
 renderer.render(scene, camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+// controls.enableZoom = false;
+// controls.enablePan = false;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 10;
 
 // Resize
 window.addEventListener("resize", () => {
