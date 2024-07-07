@@ -36,4 +36,14 @@ nav ul {
     display: flex;
     gap: 4rem;
 }
+
+.title {
+    color: white;
+    z-index: 2;
+    position: absolute;
+    font-size: 3rem;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -20%);
+}
     
