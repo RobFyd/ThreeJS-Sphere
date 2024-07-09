@@ -7,3 +7,4 @@
 
 - cd vite
 - npm run dev
+- npm run deploy
