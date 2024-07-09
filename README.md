@@ -3,7 +3,7 @@
 </div>
 
 ### Technologies:
-![TechnologiesIcons](https://skillicons.dev/icons?i=html,css,js,ts,react,threejs,vite,git,github,vscode)
+![TechnologiesIcons](https://skillicons.dev/icons?i=html,css,js,ts,threejs,vite,git,github,vscode)
 
 - cd vite
 - npm run dev
