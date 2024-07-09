@@ -7,4 +7,4 @@
 
 - cd vite
 - npm run dev
-- npm run deploy
+- npm run deploy (build and deploy to gh-pages)
