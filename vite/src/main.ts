@@ -10,12 +10,35 @@ const scene = new THREE.Scene();
 const geometry = new THREE.SphereGeometry(3, 64, 64);
 const material = new THREE.MeshStandardMaterial({
   color: "#00ff00",
-  // metalness: 1.5,
+  // wireframe: true,
+  // metalness: -0.2,
   roughness: 0.55,
 });
 
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
+
+// Element canvas - clock
+const clockCanvas = document.createElement('canvas');
+const clockContext = clockCanvas.getContext('2d');
+clockCanvas.width = 1024;
+clockCanvas.height = 1024;
+
+// Function that updates the time on canvas
+function updateClock() {
+  const time = new Date().toLocaleTimeString();
+  if (clockContext !== null) {
+    clockContext.fillStyle = 'white';
+    clockContext.clearRect(0, 0, clockCanvas.width, clockCanvas.height);
+    clockContext.font = '90px Lato';
+    clockContext.textAlign = 'center';
+    clockContext.fillText(time, clockCanvas.width / 4, clockCanvas.height / 2);
+  }
+}
+
+// Create a texture and apply it to the material
+const clockTexture = new THREE.Texture(clockCanvas);
+material.map = clockTexture;
 
 // Sizes
 const sizes = {
@@ -25,17 +48,12 @@ const sizes = {
 
 // Light
 const light = new THREE.PointLight(0xffffff, 100, 100);
-light.position.set(0, 10, 10);
-light.intensity = 300;
+light.position.set(0, 5, 10);
+light.intensity = 500;
 scene.add(light);
 
 // Camera
-const camera = new THREE.PerspectiveCamera(
-  45,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  100
-);
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.z = 20;
 scene.add(camera);
 
@@ -50,8 +68,6 @@ renderer.render(scene, camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-// controls.enableZoom = false;
-// controls.enablePan = false;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 10;
 
@@ -70,6 +86,8 @@ const loop = () => {
   // mesh.position.x = Math.sin(Date.now() * 0.0001) * 2;
   // mesh.position.y = Math.cos(Date.now() * 0.0001) * 2;
 
+  updateClock();
+  clockTexture.needsUpdate = true;  // inform Three.js that the texture has been updated
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(loop);
@@ -77,30 +95,30 @@ const loop = () => {
 loop();
 
 // timeline animation
-const tl = gsap.timeline({ defaults: { duration: 2 } });
-tl.fromTo(mesh.scale, { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 });
-tl.fromTo("nav", { y: "-100%" }, { y: "0%" }, "-=1.5");
-tl.fromTo(".title", { opacity: 0 }, { opacity: 1 }, "-=1");
+// const tl = gsap.timeline({ defaults: { duration: 2 } });
+// tl.fromTo(mesh.scale, { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 });
+// tl.fromTo("nav", { y: "-100%" }, { y: "0%" }, "-=1.5");
+// tl.fromTo(".title", { opacity: 0 }, { opacity: 1 }, "-=1");
 
 // mouse animation color
-let mouseDown = false;
-let rgb = [];
-window.addEventListener("mousedown", () => (mouseDown = true));
-window.addEventListener("mouseup", () => (mouseDown = false));
+// let mouseDown = false;
+// let rgb = [];
+// window.addEventListener("mousedown", () => (mouseDown = true));
+// window.addEventListener("mouseup", () => (mouseDown = false));
 
-window.addEventListener("mousemove", (e) => {
-  if (mouseDown) {
-    rgb = [
-      Math.round((e.pageX / sizes.width) * 255),
-      Math.round((e.pageY / sizes.height) * 255),
-      150,
-    ];
-    // animate color
-    const newColor = new THREE.Color(`rgb(${rgb.join(",")})`);
-    gsap.to(mesh.material.color, {
-      r: newColor.r,
-      g: newColor.g,
-      b: newColor.b,
-    });
-  }
-});
+// window.addEventListener("mousemove", (e) => {
+//   if (mouseDown) {
+//     rgb = [
+//       Math.round((e.pageX / sizes.width) * 255),
+//       Math.round((e.pageY / sizes.height) * 255),
+//       150,
+//     ];
+//     // animate color
+//     const newColor = new THREE.Color(`rgb(${rgb.join(",")})`);
+//     gsap.to(mesh.material.color, {
+//       r: newColor.r,
+//       g: newColor.g,
+//       b: newColor.b,
+//     });
+//   }
+// });
