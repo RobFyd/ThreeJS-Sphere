@@ -4,7 +4,9 @@
     box-sizing: border-box;
 }
 
-body, html {
+body {
+    display: flex;
+    justify-content: center;
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     background-image: linear-gradient(to right, #000013 0%, #250000 140%);
@@ -23,29 +25,39 @@ nav {
     color: white;
     z-index: 2;
     position: relative;
-    padding: 4rem 8rem;
+    padding: 3rem 8rem;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 nav a {
     text-decoration: none;
     color: white;
     font-weight: bold;
+    border: 1px solid white;
+    padding: 8px;
+    border-radius: 18px;
 }
 
-nav ul {
+/* nav ul {
     list-style: none;
     display: flex;
     gap: 4rem;
-}
+} */
 
 .title {
     color: white;
     z-index: 2;
     position: absolute;
     font-size: 3rem;
-    left: 50%;
-    top: 20%;
-    transform: translate(-50%, -20%);
+    top: 16%;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    nav a {
+        font-weight: normal;
+    }
 }
