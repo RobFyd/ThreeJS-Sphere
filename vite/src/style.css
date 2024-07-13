@@ -9,7 +9,7 @@ body {
     justify-content: center;
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
-    background-image: linear-gradient(to right, #000013 0%, #250000 140%);
+    background-image: linear-gradient(to right, #000052 0%, #4f0000 140%);
     /* background-image: linear-gradient(to right, #434343 0%, black 100%); */
     /* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(151,41,247,1) 0%, rgba(24,22,39,1) 90% ); */
 }
